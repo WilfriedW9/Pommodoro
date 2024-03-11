@@ -73,10 +73,6 @@ buttons.forEach((button) => {
   button.addEventListener("click", () => {
     startBtn.classList.remove("disabled")
     startBtn.disabled = false
-    if(hoursDisplay.innerText === 0 && minutesDisplay.innerText === 0 && secondsDisplay.innerText === 0){
-      startBtn.classList.add("disabled")
-      startBtn.disabled = true
-    }
     switch (button.value) {
       case "addHours":
         hours += 1;
@@ -135,6 +131,12 @@ buttons.forEach((button) => {
         }
         break;
     }
+    if(hours === 0 && minutes === 0 && seconds === 0){
+      startBtn.classList.add("disabled")
+      startBtn.innerText = "Pick a time period";
+      startBtn.disabled = true
+    }
+    console.log("hours: "+ hours + " minutes: "+ minutes + " seconds: " + seconds)
   });
 
   // Contrôle bouton sur maintien
