@@ -7,12 +7,16 @@ let hours = 0;
 let minutes = 25;
 let seconds = 0;
 let cycle = 0
+let isRunning = false
 
 cycleCounter.innerText = cycle
 
 hoursDisplay.innerHTML = hours;
 minutesDisplay.innerHTML = minutes;
-secondsDisplay.innerHTML = hours;
+secondsDisplay.innerHTML = seconds;
+
+
+
 
 buttons.forEach((button) => {
   hoursDisplay.innerHTML = hours;
@@ -62,8 +66,19 @@ buttons.forEach((button) => {
         secondsDisplay.innerHTML = seconds;
         break;
       case "start":
+        // const secondsInterval = setInterval(()=>{
+        //     seconds -= 1
+        //     if (seconds < 0) {
+        //         seconds = 59;
+        //       }
+        //       console.log(seconds)
+        //       secondsDisplay.innerHTML = seconds;
+        // },1000)
+        isRunning = !isRunning
+        isRunning ? console.log("timer start") : console.log("timer stop")
         button.innerText === "Start Timer" ? button.innerText = "Stop !" : button.innerText = "Start Timer"
         button.classList.contains("start") ? button.classList.remove("start") : button.classList.add("start")
+        
         break;
     }
   });
