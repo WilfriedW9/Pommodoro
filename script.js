@@ -35,6 +35,11 @@ function restTimeCalc(seconds, minutes, hours) {
 // Création du compteur
 function startCounting() {
   if (isRunning) {
+    buttons.forEach((button) => {
+      if(button.classList.contains("timeCtrl"))
+      button.disabled = true, 
+      button.classList.add("disabled")
+    })
     secondsIntervalId = setInterval(() => {
       seconds -= 1;
       if (seconds < 0) {
@@ -64,6 +69,11 @@ function startCounting() {
     }, 1000);
   } else {
     isRunning = false;
+    buttons.forEach((button) => {
+      if(button.classList.contains("timeCtrl"))
+      button.disabled = false, 
+      button.classList.remove("disabled")
+    })
     clearInterval(secondsIntervalId);
   }
 }
