@@ -36,15 +36,15 @@ function hold(timeUnit) {
   holdDownid = setInterval(() => {
     switch (timeUnit) {
       case seconds:
-        seconds += 1
+        seconds++;
         break;
       case minutes:
-        minutes += 1
+        minutes++;
         break;
       case hours:
-        hours += 1
+        hours++;
         hoursDisplay.innerHTML = hours;
-        console.log("ok")
+        console.log("ok");
         break;
     }
   }, 100);
@@ -85,9 +85,8 @@ function startCounting() {
   }
 }
 
-// Contrôle de la durée du compteur
+// Contrôle boutons sur clique
 buttons.forEach((button) => {
-  hoursDisplay.innerHTML = hours;
   button.addEventListener("click", () => {
     switch (button.value) {
       case "addHours":
@@ -149,9 +148,54 @@ buttons.forEach((button) => {
     }
   });
 
+  // Contrôle bouton sur maintien
+
   button.addEventListener("mousedown", () => {
     if (button.value !== "start") {
-      hold(hours);
+      switch (button.value) {
+        case "addHours":
+          holdDownid = setInterval(() => {
+            hours++;
+            hours === 100 ? hours = 0 : hours
+            hoursDisplay.innerHTML = hours;
+          }, 100);
+          break;
+        case "substractHours":
+          holdDownid = setInterval(() => {
+            hours--;
+            hours === 0 ? hours = 99 : hours
+            hoursDisplay.innerHTML = hours;
+          }, 100);
+          break;
+        case "addMinutes":
+          holdDownid = setInterval(() => {
+            minutes++;
+            minutes > 59 ? minutes = 0 : minutes
+            minutesDisplay.innerHTML = minutes;
+          }, 100);
+          break;
+        case "substractMinutes":
+          holdDownid = setInterval(() => {
+            minutes--;
+            minutes === 0 ? minutes = 59 : minutes
+            minutesDisplay.innerHTML = minutes;
+          }, 100);
+          break;
+        case "addSeconds":
+          holdDownid = setInterval(() => {
+            seconds++;
+            seconds > 59 ? seconds = 0 : seconds
+            secondsDisplay.innerHTML = seconds;
+          }, 100);
+          break;
+        case "substractSeconds":
+          holdDownid = setInterval(() => {
+            seconds--;
+            seconds === 0 ? seconds = 59 : seconds
+            secondsDisplay.innerHTML = seconds;
+          }, 100);
+          break;
+      }
       button.classList.add("hold");
     }
   });
