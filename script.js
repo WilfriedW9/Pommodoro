@@ -9,7 +9,7 @@ const startBtn = document.querySelector("#startBtn");
 const restTime = document.querySelector("#restTime");
 
 let hours = 0;
-let minutes = 5;
+let minutes = 25;
 let seconds = 0;
 let cycle = 0;
 const speed = 80

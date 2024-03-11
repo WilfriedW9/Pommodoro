@@ -1,6 +1,7 @@
 body {
   height: 100vh;
   margin: 0;
+  background-color: rgb(240, 232, 237);
 }
 
 .container {
