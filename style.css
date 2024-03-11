@@ -91,3 +91,13 @@ button:hover{
         background-color: rgb(0, 0, 0);
     }
 }
+
+.note{
+    opacity: 0;
+    transition: 0.15s ease-in-out;
+    cursor: default;
+}
+
+.note:hover{
+    opacity: 1;
+}

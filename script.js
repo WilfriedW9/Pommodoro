@@ -23,13 +23,18 @@ cycleCounter.innerText = cycle;
 // ID des intervalles
 let secondsIntervalId;
 let holdDownid;
-
 // Calcule du temps de repos nécessaire
 function restTimeCalc(seconds, minutes, hours) {
   let sum = 0;
-  sum += (seconds + minutes * 60 + hours * 3600) / 5;
-  console.log(sum);
-  restTime.innerHTML = Math.ceil(sum) + " seconds";
+  if(hours === 6 && minutes === 6 && seconds === 7) {
+    restTime.innerText = "MMS LDO NRM 667"
+  }else{
+    sum += (seconds + minutes * 60 + hours * 3600) / 5;
+    restHours = Math.floor(sum/ 3600)
+    restMinutes = Math.floor((sum % 3600)/60)
+    console.log(restMinutes);
+    restTime.innerText = restMinutes + (restMinutes> 1 ?" minutes":" minute");
+  }
 }
 
 // Création du compteur
@@ -62,7 +67,6 @@ function startCounting() {
         startBtn.classList.add("disabled")
         clearInterval(secondsIntervalId);
       }
-      console.log(seconds);
       secondsDisplay.innerText = seconds;
       minutesDisplay.innerText = minutes;
       hoursDisplay.innerText = hours;
@@ -146,7 +150,6 @@ buttons.forEach((button) => {
       startBtn.innerText = "Pick a time period";
       startBtn.disabled = true
     }
-    console.log("hours: "+ hours + " minutes: "+ minutes + " seconds: " + seconds)
   });
 
   // Contrôle bouton sur maintien
