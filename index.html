@@ -15,24 +15,28 @@
         <div class="btn-box"></div>
         <div class="time-display">
           <div class="time hours">
-            <button value="addHours">+</button>
+            <button value="addHours" class="timeCtrl">+</button>
             Hours
             <span id="hours"></span>
-            <button value="substractHours">-</button>
+            <button value="substractHours" class="timeCtrl">-</button>
           </div>
           <div class="time minutes">
-            <button value="addMinutes">+</button>Minutes<span
+            <button value="addMinutes" class="timeCtrl">+</button>Minutes<span
               id="minutes"
             ></span
-            ><button value="substractMinutes">-</button>
+            ><button value="substractMinutes" class="timeCtrl">-</button>
           </div>
           <div class="time seconds">
-            <button value="addSeconds">+</button>Seconds<span
+            <button value="addSeconds" class="timeCtrl">+</button>Seconds<span
               id="seconds"
             ></span
-            ><button value="substractSeconds">-</button>
+            ><button value="substractSeconds" class="timeCtrl">-</button>
           </div>
         </div>
+      </div>
+      <button value="start">Start Timer</button>
+      <div class="cycle-counter">
+        Number of cycles: <span id="cycleCounter"></span>
       </div>
     </div>
   </body>
