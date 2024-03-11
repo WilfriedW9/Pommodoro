@@ -68,6 +68,15 @@ buttons.forEach((button) => {
     }
   });
 
-  button.addEventListener("mousedown", () => {});
-  button.addEventListener("mouseup", () => {});
+  button.addEventListener("mousedown", () => {
+    if(button.value !== "start"){
+        button.classList.add("hold")
+    }
+  });
+  button.addEventListener("mouseup", () => {
+    button.classList.remove("hold")
+  });
+  button.addEventListener("mouseleave", () => {
+    button.classList.remove("hold")
+  });
 });

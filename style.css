@@ -40,9 +40,13 @@ button{
 
 }
 
-.timeCtrl:active{
-    animation: shiver 0.1s ease-out;
+.hold {
+    animation: infiniteShiver 0.1s infinite ease-out;
 }
+/* .timeCtrl:active{
+    animation: shiver 0.1s ease-out;
+} */
+
 button:hover{
     cursor: pointer;
     box-shadow: 4px 4px rgb(51, 91, 140);
@@ -57,10 +61,19 @@ button:hover{
         transform: rotateZ(-15deg);
     }
 }
+@keyframes infiniteShiver {
+    from {
+        transform: rotateZ(5deg);
+    }
+    to{
+        transform: rotateZ(-5deg);
+    }
+}
 
 .start{
     animation: shine 1s forwards ;
 }
+
 @keyframes shine {
     from {
         background-color: rgb(82, 133, 196);
