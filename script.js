@@ -5,11 +5,12 @@ const hoursDisplay = document.querySelector("#hours");
 const minutesDisplay = document.querySelector("#minutes");
 const secondsDisplay = document.querySelector("#seconds");
 const cycleCounter = document.querySelector("#cycleCounter");
-const startBtn = document.querySelector("#startBtn")
+const startBtn = document.querySelector("#startBtn");
+const restTime = document.querySelector("#restTime");
 
 let hours = 0;
-let minutes = 0;
-let seconds = 5;
+let minutes = 5;
+let seconds = 0;
 let cycle = 0;
 let isRunning = false;
 
@@ -18,8 +19,36 @@ minutesDisplay.innerHTML = minutes;
 secondsDisplay.innerHTML = seconds;
 cycleCounter.innerText = cycle;
 
+// ID des intervalles
 let secondsIntervalId;
+let holdDownid;
 
+// Calcule du temps de repos nécessaire
+function restTimeCalc(seconds, minutes, hours) {
+  let sum = 0;
+  sum += (seconds + minutes * 60 + hours * 3600) / 5;
+  console.log(sum);
+  restTime.innerHTML = Math.ceil(sum) + " seconds";
+}
+
+// Fonction pour pouvoir maintenir une touche et auto-incrémenter
+function hold(timeUnit) {
+  holdDownid = setInterval(() => {
+    switch (timeUnit) {
+      case seconds:
+        seconds += 1
+        break;
+      case minutes:
+        minutes += 1
+        break;
+      case hours:
+        hours += 1
+        hoursDisplay.innerHTML = hours;
+        console.log("ok")
+        break;
+    }
+  }, 100);
+}
 
 // Création du compteur
 function startCounting() {
@@ -35,10 +64,10 @@ function startCounting() {
         hours -= 1;
       }
       if (hours === 0 && minutes === 0 && seconds < 1) {
-        isRunning = false
-        startBtn.classList.remove("start")
-        startBtn.innerText = "Start Timer"
-        cycle += 1
+        isRunning = false;
+        startBtn.classList.remove("start");
+        startBtn.innerText = "Start Timer";
+        cycle += 1;
         cycleCounter.innerText = cycle;
         hours = 0;
         minutes = 0;
@@ -51,7 +80,7 @@ function startCounting() {
       hoursDisplay.innerHTML = hours;
     }, 1000);
   } else {
-    isRunning = false
+    isRunning = false;
     clearInterval(secondsIntervalId);
   }
 }
@@ -113,16 +142,21 @@ buttons.forEach((button) => {
           ? button.classList.remove("start")
           : button.classList.add("start");
         startCounting();
+        if (isRunning) {
+          restTimeCalc(seconds, minutes, hours);
+        }
         break;
     }
   });
 
   button.addEventListener("mousedown", () => {
     if (button.value !== "start") {
+      hold(hours);
       button.classList.add("hold");
     }
   });
   button.addEventListener("mouseup", () => {
+    clearInterval(holdDownid);
     button.classList.remove("hold");
   });
   button.addEventListener("mouseleave", () => {
