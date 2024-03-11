@@ -12,6 +12,7 @@ let hours = 0;
 let minutes = 5;
 let seconds = 0;
 let cycle = 0;
+const speed = 80
 let isRunning = false;
 
 hoursDisplay.innerHTML = hours;
@@ -29,25 +30,6 @@ function restTimeCalc(seconds, minutes, hours) {
   sum += (seconds + minutes * 60 + hours * 3600) / 5;
   console.log(sum);
   restTime.innerHTML = Math.ceil(sum) + " seconds";
-}
-
-// Fonction pour pouvoir maintenir une touche et auto-incrémenter
-function hold(timeUnit) {
-  holdDownid = setInterval(() => {
-    switch (timeUnit) {
-      case seconds:
-        seconds++;
-        break;
-      case minutes:
-        minutes++;
-        break;
-      case hours:
-        hours++;
-        hoursDisplay.innerHTML = hours;
-        console.log("ok");
-        break;
-    }
-  }, 100);
 }
 
 // Création du compteur
@@ -158,42 +140,42 @@ buttons.forEach((button) => {
             hours++;
             hours === 100 ? hours = 0 : hours
             hoursDisplay.innerHTML = hours;
-          }, 100);
+          }, speed);
           break;
         case "substractHours":
           holdDownid = setInterval(() => {
             hours--;
-            hours === 0 ? hours = 99 : hours
+            hours < 0 ? hours = 99 : hours
             hoursDisplay.innerHTML = hours;
-          }, 100);
+          }, speed);
           break;
         case "addMinutes":
           holdDownid = setInterval(() => {
             minutes++;
             minutes > 59 ? minutes = 0 : minutes
             minutesDisplay.innerHTML = minutes;
-          }, 100);
+          }, speed);
           break;
         case "substractMinutes":
           holdDownid = setInterval(() => {
             minutes--;
-            minutes === 0 ? minutes = 59 : minutes
+            minutes < 0 ? minutes = 59 : minutes
             minutesDisplay.innerHTML = minutes;
-          }, 100);
+          }, speed);
           break;
         case "addSeconds":
           holdDownid = setInterval(() => {
             seconds++;
             seconds > 59 ? seconds = 0 : seconds
             secondsDisplay.innerHTML = seconds;
-          }, 100);
+          }, speed);
           break;
         case "substractSeconds":
           holdDownid = setInterval(() => {
             seconds--;
-            seconds === 0 ? seconds = 59 : seconds
+            seconds < 0 ? seconds = 59 : seconds
             secondsDisplay.innerHTML = seconds;
-          }, 100);
+          }, speed);
           break;
       }
       button.classList.add("hold");
