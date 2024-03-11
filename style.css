@@ -73,6 +73,15 @@ button:hover{
 .start{
     animation: shine 1s forwards ;
 }
+.disabled{
+    opacity: 0.5;
+    filter: brightness(1);
+}
+
+.disabled:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+}
 
 @keyframes shine {
     from {

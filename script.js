@@ -15,9 +15,9 @@ let cycle = 0;
 const speed = 80
 let isRunning = false;
 
-hoursDisplay.innerHTML = hours;
-minutesDisplay.innerHTML = minutes;
-secondsDisplay.innerHTML = seconds;
+hoursDisplay.innerText = hours;
+minutesDisplay.innerText = minutes;
+secondsDisplay.innerText = seconds;
 cycleCounter.innerText = cycle;
 
 // ID des intervalles
@@ -45,21 +45,22 @@ function startCounting() {
         minutes = 59;
         hours -= 1;
       }
-      if (hours === 0 && minutes === 0 && seconds < 1) {
+      if (hours === 0 && minutes === 0 && seconds === 0) {
         isRunning = false;
         startBtn.classList.remove("start");
-        startBtn.innerText = "Start Timer";
+        startBtn.innerText = "Pick a time period";
         cycle += 1;
         cycleCounter.innerText = cycle;
-        hours = 0;
-        minutes = 0;
-        seconds = 0;
+        console.log("disabled button")
+        startBtn.disabled = true
+        startBtn.classList.remove("start")
+        startBtn.classList.add("disabled")
         clearInterval(secondsIntervalId);
       }
       console.log(seconds);
-      secondsDisplay.innerHTML = seconds;
-      minutesDisplay.innerHTML = minutes;
-      hoursDisplay.innerHTML = hours;
+      secondsDisplay.innerText = seconds;
+      minutesDisplay.innerText = minutes;
+      hoursDisplay.innerText = hours;
     }, 1000);
   } else {
     isRunning = false;
@@ -70,6 +71,12 @@ function startCounting() {
 // Contrôle boutons sur clique
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
+    startBtn.classList.remove("disabled")
+    startBtn.disabled = false
+    if(hoursDisplay.innerText === 0 && minutesDisplay.innerText === 0 && secondsDisplay.innerText === 0){
+      startBtn.classList.add("disabled")
+      startBtn.disabled = true
+    }
     switch (button.value) {
       case "addHours":
         hours += 1;
@@ -116,7 +123,7 @@ buttons.forEach((button) => {
         break;
       case "start":
         isRunning = !isRunning;
-        button.innerText === "Start Timer"
+        isRunning
           ? (button.innerText = "Stop !")
           : (button.innerText = "Start Timer");
         !isRunning
@@ -186,6 +193,7 @@ buttons.forEach((button) => {
     button.classList.remove("hold");
   });
   button.addEventListener("mouseleave", () => {
+    clearInterval(holdDownid);
     button.classList.remove("hold");
   });
 });
