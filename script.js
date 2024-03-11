@@ -1,20 +1,17 @@
+// Récupération éléments + initialisation variables
+
 const buttons = document.querySelectorAll("button");
 const hoursDisplay = document.querySelector("#hours");
 const minutesDisplay = document.querySelector("#minutes");
 const secondsDisplay = document.querySelector("#seconds");
 const cycleCounter = document.querySelector("#cycleCounter");
 const startBtn = document.querySelector("#startBtn")
+
 let hours = 0;
 let minutes = 0;
 let seconds = 5;
 let cycle = 0;
 let isRunning = false;
-
-
-
-
-
-
 
 hoursDisplay.innerHTML = hours;
 minutesDisplay.innerHTML = minutes;
@@ -23,6 +20,8 @@ cycleCounter.innerText = cycle;
 
 let secondsIntervalId;
 
+
+// Création du compteur
 function startCounting() {
   if (isRunning) {
     secondsIntervalId = setInterval(() => {
@@ -57,6 +56,7 @@ function startCounting() {
   }
 }
 
+// Contrôle de la durée du compteur
 buttons.forEach((button) => {
   hoursDisplay.innerHTML = hours;
   button.addEventListener("click", () => {
