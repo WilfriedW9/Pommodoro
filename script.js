@@ -2,21 +2,60 @@ const buttons = document.querySelectorAll("button");
 const hoursDisplay = document.querySelector("#hours");
 const minutesDisplay = document.querySelector("#minutes");
 const secondsDisplay = document.querySelector("#seconds");
-const cycleCounter = document.querySelector("#cycleCounter")
+const cycleCounter = document.querySelector("#cycleCounter");
+const startBtn = document.querySelector("#startBtn")
 let hours = 0;
-let minutes = 25;
-let seconds = 0;
-let cycle = 0
-let isRunning = false
+let minutes = 0;
+let seconds = 5;
+let cycle = 0;
+let isRunning = false;
 
-cycleCounter.innerText = cycle
+
+
+
+
+
 
 hoursDisplay.innerHTML = hours;
 minutesDisplay.innerHTML = minutes;
 secondsDisplay.innerHTML = seconds;
+cycleCounter.innerText = cycle;
 
+let secondsIntervalId;
 
-
+function startCounting() {
+  if (isRunning) {
+    secondsIntervalId = setInterval(() => {
+      seconds -= 1;
+      if (seconds < 0) {
+        seconds = 59;
+        minutes -= 1;
+      }
+      if (minutes < 0) {
+        minutes = 59;
+        hours -= 1;
+      }
+      if (hours === 0 && minutes === 0 && seconds < 1) {
+        isRunning = false
+        startBtn.classList.remove("start")
+        startBtn.innerText = "Start Timer"
+        cycle += 1
+        cycleCounter.innerText = cycle;
+        hours = 0;
+        minutes = 0;
+        seconds = 0;
+        clearInterval(secondsIntervalId);
+      }
+      console.log(seconds);
+      secondsDisplay.innerHTML = seconds;
+      minutesDisplay.innerHTML = minutes;
+      hoursDisplay.innerHTML = hours;
+    }, 1000);
+  } else {
+    isRunning = false
+    clearInterval(secondsIntervalId);
+  }
+}
 
 buttons.forEach((button) => {
   hoursDisplay.innerHTML = hours;
@@ -66,32 +105,27 @@ buttons.forEach((button) => {
         secondsDisplay.innerHTML = seconds;
         break;
       case "start":
-        // const secondsInterval = setInterval(()=>{
-        //     seconds -= 1
-        //     if (seconds < 0) {
-        //         seconds = 59;
-        //       }
-        //       console.log(seconds)
-        //       secondsDisplay.innerHTML = seconds;
-        // },1000)
-        isRunning = !isRunning
-        isRunning ? console.log("timer start") : console.log("timer stop")
-        button.innerText === "Start Timer" ? button.innerText = "Stop !" : button.innerText = "Start Timer"
-        button.classList.contains("start") ? button.classList.remove("start") : button.classList.add("start")
-        
+        isRunning = !isRunning;
+        button.innerText === "Start Timer"
+          ? (button.innerText = "Stop !")
+          : (button.innerText = "Start Timer");
+        !isRunning
+          ? button.classList.remove("start")
+          : button.classList.add("start");
+        startCounting();
         break;
     }
   });
 
   button.addEventListener("mousedown", () => {
-    if(button.value !== "start"){
-        button.classList.add("hold")
+    if (button.value !== "start") {
+      button.classList.add("hold");
     }
   });
   button.addEventListener("mouseup", () => {
-    button.classList.remove("hold")
+    button.classList.remove("hold");
   });
   button.addEventListener("mouseleave", () => {
-    button.classList.remove("hold")
+    button.classList.remove("hold");
   });
 });
