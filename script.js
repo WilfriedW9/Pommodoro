@@ -7,6 +7,9 @@ const secondsDisplay = document.querySelector("#seconds");
 const cycleCounter = document.querySelector("#cycleCounter");
 const startBtn = document.querySelector("#startBtn");
 const restTime = document.querySelector("#restTime");
+const alarm = new Audio("Timer end.mp3")
+const mute = document.querySelector("#mute")
+
 
 let hours = 0;
 let minutes = 25;
@@ -32,7 +35,6 @@ function restTimeCalc(seconds, minutes, hours) {
     sum += (seconds + minutes * 60 + hours * 3600) / 5;
     restHours = Math.floor(sum/ 3600)
     restMinutes = Math.floor((sum % 3600)/60)
-    console.log(restMinutes);
     restTime.innerText = restMinutes + (restMinutes> 1 ?" minutes":" minute");
   }
 }
@@ -61,10 +63,17 @@ function startCounting() {
         startBtn.innerText = "Pick a time period";
         cycle += 1;
         cycleCounter.innerText = cycle;
-        console.log("disabled button")
         startBtn.disabled = true
         startBtn.classList.remove("start")
         startBtn.classList.add("disabled")
+        buttons.forEach((button) => {
+          if(button.classList.contains("timeCtrl"))
+          button.disabled = false, 
+          button.classList.remove("disabled")
+        })
+        alarm.volume = 0.5
+        alarm.currentTime = 0
+        alarm.play()
         clearInterval(secondsIntervalId);
       }
       secondsDisplay.innerText = seconds;
@@ -73,17 +82,18 @@ function startCounting() {
     }, 1000);
   } else {
     isRunning = false;
+    clearInterval(secondsIntervalId);
     buttons.forEach((button) => {
       if(button.classList.contains("timeCtrl"))
       button.disabled = false, 
       button.classList.remove("disabled")
     })
-    clearInterval(secondsIntervalId);
   }
 }
 
 // Contrôle boutons sur clique
 buttons.forEach((button) => {
+  console.log(button)
   button.addEventListener("click", () => {
     startBtn.classList.remove("disabled")
     startBtn.disabled = false
@@ -144,6 +154,9 @@ buttons.forEach((button) => {
           restTimeCalc(seconds, minutes, hours);
         }
         break;
+        case "mute":
+          alarm.volume = 0
+          break;
     }
     if(hours === 0 && minutes === 0 && seconds === 0){
       startBtn.classList.add("disabled")

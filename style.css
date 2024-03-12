@@ -102,3 +102,7 @@ button:hover{
 .note:hover{
     opacity: 1;
 }
+
+.hidden {
+    visibility: hidden;
+}
