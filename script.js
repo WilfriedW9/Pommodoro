@@ -59,6 +59,8 @@ function startCounting() {
       }
       if (hours === 0 && minutes === 0 && seconds === 0) {
         isRunning = false;
+        mute.classList.remove("hidden")
+        mute.classList.add("hold")
         startBtn.classList.remove("start");
         startBtn.innerText = "Pick a time period";
         cycle += 1;
@@ -156,6 +158,7 @@ buttons.forEach((button) => {
         break;
         case "mute":
           alarm.volume = 0
+          mute.classList.add("hidden")
           break;
     }
     if(hours === 0 && minutes === 0 && seconds === 0){
