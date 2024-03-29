@@ -1,0 +1,88 @@
+/* Style souris */
+*, *:hover{
+    cursor: none;
+}
+.cursor{
+    border: 0;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid rgb(0, 0, 0);
+    border-radius: 50%;
+    position: absolute;
+    transition-timing-function: ease-in-out;
+    animation: cursorAnim 1s infinite alternate;
+    pointer-events: none;
+    z-index: 99999;
+
+}
+
+.cursor:after {
+    content: "";
+    top: 8px;
+    left: 8px;
+    width: 2px;
+    height: 2px;
+    border: 1.5px solid rgb(0, 0, 0);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.expand{
+    animation: cursorAnim2 .5s;
+}
+
+.vanish{
+    animation: cursorAnim3 .5s forwards;
+}
+.appear{
+    animation: cursorAnim4 2s ;
+}
+
+@keyframes cursorAnim {
+    from {
+        transform: scale(1)
+    }
+    to {
+        transform: scale(.8)
+    }
+}
+
+@keyframes cursorAnim2 {
+    0% {
+        transform: scale(1)
+    }
+    50% {
+        transform: scale(1.5)
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0; 
+    }
+}
+
+
+@keyframes cursorAnim3 {
+    0% {
+        opacity: 100;
+    }
+
+    100% {
+        transform: scale(3);
+        opacity: 0; 
+    }
+}
+
+@keyframes cursorAnim4 {
+    from {
+        transform: scale(3);
+        opacity: 0;
+    }
+
+    to{
+        transform: scale(1);
+        opacity: 100; 
+    }
+}
+
+
+
