@@ -7,15 +7,14 @@ const secondsDisplay = document.querySelector("#seconds");
 const cycleCounter = document.querySelector("#cycleCounter");
 const startBtn = document.querySelector("#startBtn");
 const restTime = document.querySelector("#restTime");
-const alarm = new Audio("Timer end.mp3")
-const mute = document.querySelector("#mute")
-
+const alarm = new Audio("Timer end.mp3");
+const mute = document.querySelector("#mute");
 
 let hours = 0;
 let minutes = 25;
 let seconds = 0;
 let cycle = 0;
-const speed = 80
+const speed = 80;
 let isRunning = false;
 
 hoursDisplay.innerText = hours;
@@ -29,13 +28,14 @@ let holdDownid;
 // Calcule du temps de repos nécessaire
 function restTimeCalc(seconds, minutes, hours) {
   let sum = 0;
-  if(hours === 6 && minutes === 6 && seconds === 7) {
-    restTime.innerText = "MMS LDO NRM 667"
-  }else{
+  if (hours === 6 && minutes === 6 && seconds === 7) {
+    restTime.innerText = "MMS LDO NRM 667";
+  } else {
     sum += (seconds + minutes * 60 + hours * 3600) / 5;
-    restHours = Math.floor(sum/ 3600)
-    restMinutes = Math.floor((sum % 3600)/60)
-    restTime.innerText = restMinutes + (restMinutes> 1 ?" minutes":" minute");
+    restHours = Math.floor(sum / 3600);
+    restMinutes = Math.floor((sum % 3600) / 60);
+    restTime.innerText =
+      restMinutes + (restMinutes > 1 ? " minutes" : " minute");
   }
 }
 
@@ -43,10 +43,9 @@ function restTimeCalc(seconds, minutes, hours) {
 function startCounting() {
   if (isRunning) {
     buttons.forEach((button) => {
-      if(button.classList.contains("timeCtrl"))
-      button.disabled = true, 
-      button.classList.add("disabled")
-    })
+      if (button.classList.contains("timeCtrl"))
+        (button.disabled = true), button.classList.add("disabled");
+    });
     secondsIntervalId = setInterval(() => {
       seconds -= 1;
       if (seconds < 0) {
@@ -59,23 +58,22 @@ function startCounting() {
       }
       if (hours === 0 && minutes === 0 && seconds === 0) {
         isRunning = false;
-        mute.classList.remove("hidden")
-        mute.classList.add("hold")
+        mute.classList.remove("hidden");
+        mute.classList.add("hold");
         startBtn.classList.remove("start");
         startBtn.innerText = "Pick a time period";
         cycle += 1;
         cycleCounter.innerText = cycle;
-        startBtn.disabled = true
-        startBtn.classList.remove("start")
-        startBtn.classList.add("disabled")
+        startBtn.disabled = true;
+        startBtn.classList.remove("start");
+        startBtn.classList.add("disabled");
         buttons.forEach((button) => {
-          if(button.classList.contains("timeCtrl"))
-          button.disabled = false, 
-          button.classList.remove("disabled")
-        })
-        alarm.volume = 0.5
-        alarm.currentTime = 0
-        alarm.play()
+          if (button.classList.contains("timeCtrl"))
+            (button.disabled = false), button.classList.remove("disabled");
+        });
+        alarm.volume = 0.5;
+        alarm.currentTime = 0;
+        alarm.play();
         clearInterval(secondsIntervalId);
       }
       secondsDisplay.innerText = seconds;
@@ -86,19 +84,17 @@ function startCounting() {
     isRunning = false;
     clearInterval(secondsIntervalId);
     buttons.forEach((button) => {
-      if(button.classList.contains("timeCtrl"))
-      button.disabled = false, 
-      button.classList.remove("disabled")
-    })
+      if (button.classList.contains("timeCtrl"))
+        (button.disabled = false), button.classList.remove("disabled");
+    });
   }
 }
 
 // Contrôle boutons sur clique
 buttons.forEach((button) => {
-  console.log(button)
   button.addEventListener("click", () => {
-    startBtn.classList.remove("disabled")
-    startBtn.disabled = false
+    startBtn.classList.remove("disabled");
+    startBtn.disabled = false;
     switch (button.value) {
       case "addHours":
         hours += 1;
@@ -156,15 +152,15 @@ buttons.forEach((button) => {
           restTimeCalc(seconds, minutes, hours);
         }
         break;
-        case "mute":
-          alarm.volume = 0
-          mute.classList.add("hidden")
-          break;
+      case "mute":
+        alarm.volume = 0;
+        mute.classList.add("hidden");
+        break;
     }
-    if(hours === 0 && minutes === 0 && seconds === 0){
-      startBtn.classList.add("disabled")
+    if (hours === 0 && minutes === 0 && seconds === 0) {
+      startBtn.classList.add("disabled");
       startBtn.innerText = "Pick a time period";
-      startBtn.disabled = true
+      startBtn.disabled = true;
     }
   });
 
@@ -176,42 +172,42 @@ buttons.forEach((button) => {
         case "addHours":
           holdDownid = setInterval(() => {
             hours++;
-            hours === 100 ? hours = 0 : hours
+            hours === 100 ? (hours = 0) : hours;
             hoursDisplay.innerHTML = hours;
           }, speed);
           break;
         case "substractHours":
           holdDownid = setInterval(() => {
             hours--;
-            hours < 0 ? hours = 99 : hours
+            hours < 0 ? (hours = 99) : hours;
             hoursDisplay.innerHTML = hours;
           }, speed);
           break;
         case "addMinutes":
           holdDownid = setInterval(() => {
             minutes++;
-            minutes > 59 ? minutes = 0 : minutes
+            minutes > 59 ? (minutes = 0) : minutes;
             minutesDisplay.innerHTML = minutes;
           }, speed);
           break;
         case "substractMinutes":
           holdDownid = setInterval(() => {
             minutes--;
-            minutes < 0 ? minutes = 59 : minutes
+            minutes < 0 ? (minutes = 59) : minutes;
             minutesDisplay.innerHTML = minutes;
           }, speed);
           break;
         case "addSeconds":
           holdDownid = setInterval(() => {
             seconds++;
-            seconds > 59 ? seconds = 0 : seconds
+            seconds > 59 ? (seconds = 0) : seconds;
             secondsDisplay.innerHTML = seconds;
           }, speed);
           break;
         case "substractSeconds":
           holdDownid = setInterval(() => {
             seconds--;
-            seconds < 0 ? seconds = 59 : seconds
+            seconds < 0 ? (seconds = 59) : seconds;
             secondsDisplay.innerHTML = seconds;
           }, speed);
           break;
@@ -228,3 +224,37 @@ buttons.forEach((button) => {
     button.classList.remove("hold");
   });
 });
+// Ajout micro-librairie splitting.js
+
+Splitting();
+
+const delayedLoop = async () => {
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const myAsyncFunc = async (i) => {
+    return true;
+  };
+
+  const arr = document.querySelector("#title")["🍌"].chars;
+  for(let i=0; i < arr.length; i++) {
+     await myAsyncFunc(arr[i].classList.add("red"));
+     await delay(30);
+  }
+}
+
+const myFunc = async () => {
+  await delayedLoop();
+  setTimeout(()=>{
+    const arr = document.querySelector("#title")["🍌"].chars;
+  for(let i=0; i < arr.length; i++) {
+    arr[i].classList.add("fade");
+ }
+  },1000)
+  
+}
+
+myFunc();
+
+
+
+
