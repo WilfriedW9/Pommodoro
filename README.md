@@ -1,1 +1,1 @@
-Projet personneld e minuteur pommodoro, avec alarme et calcul du temps de repos
+Projet personnel fe minuteur pommodoro, avec alarme et calcul du temps de repos.
